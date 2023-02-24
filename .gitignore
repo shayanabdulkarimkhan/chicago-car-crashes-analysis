@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#excluding the data
+Traffic_Crashes-Crashes.csv
+Traffic_Crashes-Vehicles.csv
+
+#ignore the data folder
+/data
