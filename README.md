@@ -26,7 +26,7 @@ Considering that this is the official dataset of the City of Chicago regarding t
 ### Traffic Crashes - Crashes
 This is the summary data for all the crashes. Thee dataset was downloaded and stores in the `data` folder as `Traffic_Crashes-Crashes`. The overview of the contents of this data is aavailable below and at https://data.cityofchicago.org/Transportation/Traffic-Crashes-Crashes/85ca-t3if.
 
-Crash data shows information about each traffic crash on city streets within the City of Chicago limits and under the jurisdiction of Chicago Police Department (CPD). Data are shown as is from the electronic crash reporting system (E-Crash) at CPD, excluding any personally identifiable information. Records are added to the data portal when a crash report is finalized or when amendments are made to an existing report in E-Crash. Data from E-Crash are available for some police districts in 2015, but citywide data are not available until September 2017. About half of all crash reports, mostly minor crashes, are self-reported at the police district by the driver(s) involved and the other half are recorded at the scene by the police officer responding to the crash. Many of the crash parameters, including street condition data, weather condition, and posted speed limits, are recorded by the reporting officer based on best available information at the time, but many of these may disagree with posted information or other assessments on road conditions. If any new or updated information on a crash is received, the reporting officer may amend the crash report at a later time. A traffic crash within the city limits for which CPD is not the responding police agency, typically crashes on interstate highways, freeway ramps, and on local roads along the City boundary, are excluded from this dataset.
+Crash data shows information about each traffic crash on city streets within the City of Chicago limits and under the jurisdiction of Chicago Police Department (CPD). A traffic crash within the city limits for which CPD is not the responding police agency, typically crashes on interstate highways, freeway ramps, and on local roads along the City boundary, are excluded from this dataset.
 
 As per Illinois statute, only crashes with a property damage value of $1,500 or more or involving bodily injury to any person(s) and that happen on a public roadway and that involve at least one moving vehicle, except bike dooring, are considered reportable crashes. However, CPD records every reported traffic crash event, regardless of the statute of limitations, and hence any formal Chicago crash dataset released by Illinois Department of Transportation may not include all the crashes listed here.
 
@@ -54,10 +54,10 @@ The columns to be carried forward are:
 19. NUM_UNITS
 
 
-### Traffic Crashes - Vechiles
+### Traffic Crashes - Vehicles
 This is the summary data for all the crashes. Thee dataset was downloaded and stores in the `data` folder as `Traffic_Crashes-Vehicles`. The overview of the contents of this data is aavailable below and at https://data.cityofchicago.org/Transportation/Traffic-Crashes-Vehicles/68nd-jvt3.
 
-This dataset contains information about vehicles (or units as they are identified in crash reports) involved in a traffic crash. This dataset should be used in conjunction with the traffic Crash and People dataset available in the portal. “Vehicle” information includes motor vehicle and non-motor vehicle modes of transportation, such as bicycles and pedestrians. Each mode of transportation involved in a crash is a “unit” and get one entry here. Each vehicle, each pedestrian, each motorcyclist, and each bicyclist is considered an independent unit that can have a trajectory separate from the other units. However, people inside a vehicle including the driver do not have a trajectory separate from the vehicle in which they are travelling and hence only the vehicle they are travelling in get any entry here. This type of identification of “units” is needed to determine how each movement affected the crash. Data for occupants who do not make up an independent unit, typically drivers and passengers, are available in the People table. Many of the fields are coded to denote the type and location of damage on the vehicle. Vehicle information can be linked back to Crash data using the “CRASH_RECORD_ID” field. Since this dataset is a combination of vehicles, pedestrians, and pedal cyclists not all columns are applicable to each record.
+This dataset contains information about vehicles (or units as they are identified in crash reports) involved in a traffic crash. This dataset should be used in conjunction with the traffic Crash and People dataset available in the portal. “Vehicle” information includes motor vehicle and non-motor vehicle modes of transportation, such as bicycles and pedestrians. Each vehicle, each pedestrian, each motorcyclist, and each bicyclist is considered an independent unit that can have a trajectory separate from the other units. Vehicle information can be linked back to Crash data using the “CRASH_RECORD_ID” field. Since this dataset is a combination of vehicles, pedestrians, and pedal cyclists not all columns are applicable to each record.
 
 There are in total 72 features in this dataset. Through domain knowledge and data understanding, 8 features were seeleccted to be taken forward. The columns with categorical data being ccarried forward were encoded using either spiral encoding or one hot encoding.
 
@@ -73,7 +73,7 @@ The columns to be carried forward are:
 
 
 ### Traffic Crashes - People
-This data contains information about people involved in a crash and if any injuries were sustained. This dataset should be used in combination with the traffic Crash and Vehicle dataset. Each record corresponds to an occupant in a vehicle listed in the Crash dataset. Some people involved in a crash may not have been an occupant in a motor vehicle, but may have been a pedestrian, bicyclist, or using another non-motor vehicle mode of transportation. Injuries reported are reported by the responding police officer. Fatalities that occur after the initial reports are typically updated in these records up to 30 days after the date of the crash. Person data can be linked with the Crash and Vehicle dataset using the “CRASH_RECORD_ID” field. A vehicle can have multiple occupants and hence have a one to many relationship between Vehicle and Person dataset. However, a pedestrian is a “unit” by itself and have a one to one relationship between the Vehicle and Person table.
+This data contains information about people involved in a crash and if any injuries were sustained. A pedestrian is a “unit” by itself and have a one to one relationship between the Vehicle and Person table.
 
 There are in total 30 features in this dataset. Through domain knowledge and data understanding, 11 features were seeleccted to be taken forward. The columns with categorical data being ccarried forward were encoded using either spiral encoding or one hot encoding.
 
@@ -113,7 +113,7 @@ The modelling results were as follows:
 1. Decision Trees (Baseline Model):
     Accuracy: 0.70
     Precision: 0.70
-    <img src="cm_images/dt_cm.pngv" alt="Alt text" title="Decision Tree Confusion Matrix">
+    <img src="cm_images/dt_cm.png" alt="Alt text" title="Decision Tree Confusion Matrix">
 
 2. KNN:
     Accuracy: 0.73
@@ -135,7 +135,41 @@ Final Model: Random Forest
 
 The highest number of records for primary contributaaaary cause was Unable to Determine with almost 260,000 records out of a totaal of 690,000 which is a ~38% of the records. Being able to predict the causes of these crashes with 76% will be able to help the CDOT to significantly improve work towards Vision Zero and reduce the uncertainty in one of their singular biggest car crash cause.
 
-Also, looking at the features that showcased to play the largest imapct were the ones listed below. CDOT understands that their are always multiple factorss at play fora cause and it iss difficult to boil down and identify a singular cause. While there might be a singular cause that is very apparent, there can be certain trens, underlying patterns or other causes that can help the stakeholders derive insights into how to tackle certain causes of crashes and mitigate injuries/fatalities. This will grealy help CDOt mode further in its goal towards Vision Zero
+Looking at the Top 4 features contributing to these crashes, the comparitive resultss are as follows:
+
+Latitude and Longitude:
+
+    <img src="cm_images/TRAINING_LL.png" alt="Alt text" title="Training Causes">
+
+We can clearly see a demarcation in the hotspots for Traffic Rules being violated. Whikle REckless/Improper driving is spread fairly equally all over Chicago, Traffic Rules Violation has concentrated hotspots in certain densely populated areas, for instance, the downtown chicago area. Lets see how did the unablee to determine dataset is spread out.
+
+
+    <img src="cm_images/PREDICTED_LL.png" alt="Alt text" title="Predicted Causes">
+
+We see a similar trend where traffic rule violations have hoot spots in densely populated areas. This is something that CDOT can explore further to deriive insights for poliicy and action.
+
+
+Intersection Related:
+
+<img src="cm_images/TRAINING_IR.png" alt="Alt text" title="Training Causes">
+
+We can cleaarly see that for reckless/improper driving, it happens alot more when drivers are not at intersectionss but for traaffci rules are violated more at intersections. This can help inform DOT how to takee appropriate measures. Next we will check whether the predicited dataset for unable to determine has a simlar trend.
+
+<img src="cm_images/PREDICTED_IR.png" alt="Alt text" title="Predicted Causes">
+
+Looks like wee didn't have any intersecton related events for the unable to determine dataset.
+For the Non-intersection related events we can see a similat trend of higher traffic violations and more reckless improper driving in densely populated/touristy areas.
+
+
+Driver Action:
+
+<img src="cm_images/TRAINING_DA.png" alt="Alt text" title="Training Causes"
+
+<img src="cm_images/Predicted_DA.png" alt="Alt text" title="Predicted Causes">
+
+There is no explicit dsicernable pattern fro driver action but the fact that it is the third highest contributing factoor too predicting crashes means that it should be explored further
+
+Also, looking at the features that showcased to play the largest imapct were the ones listed below. CDOT understands that their are always multiple factorss at play fora cause and it iss difficult to boil down and identify a singular cause. While there might be a singular cause that is very apparent, there can be certain trens, underlying patterns or other causes that can help the stakeholders derive insights into how to tackle certain causes of crashes and mitigate injuries/fatalities. This will grealy help CDOT mode further in its goal towards Vision Zero
 
 1. Latitude: 0.32
 2. Longitude: 0.32
@@ -182,7 +216,7 @@ Also, looking at the features that showcased to play the largest imapct were the
     9. Rather than dropping features in the Data Understanding section, use all features to determine which ones provide the most information and then select the top 10 features. It is possible that there aare highly informational columns that were dropped.
 
 
-## Next Steps:
+## RECOMMENDATIONS:
 It would be helpful to further refine the models to increase the accuracy to be greater thaan 90% to create a model that has a very high level of confidence.
 
 Alongside, CDOT can start investigating the top 10 factors based on their scoring from the feature selection section.
@@ -208,3 +242,19 @@ Intersection related is interesting because Intersections have one of the most d
 
 
 Similarly, the remaining factors can be explored to further analyze the kind of correlations that these feature have to causes and create policy and mitigation measures to move CDOT closer to Vision Zero.
+
+---------------------------------------------------------------------------------------------------------------------------------
+## MORE INFORMATION:
+Please use the following links to get more information:
+1. Click [here](https://github.com/shayanabdulkarimkhan/chicago-car-crashes-analysis/blob/main/notebook.ipynb) to see the full analysis: 
+2. Click [here](https://github.com/shayanabdulkarimkhan/chicago-car-crashes-analysis/blob/main/Stakeholder%20Presentation.pptx) to see the overview presentation.
+
+Please feel free to contact me at shayan.khan@nyu.edu if you would like to understand more talk about the project.
+
+---------------------------------------------------------------------------------------------------------------------------------
+├── cm_images
+├── Notebook Iterations
+├── pdf
+├── notebook.ipynb
+├── Stakeholder Presentation.pptx
+└── README.md
