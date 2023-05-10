@@ -139,12 +139,12 @@ Looking at the Top 4 features contributing to these crashes, the comparitive res
 
 Latitude and Longitude:
 
-    <img src="cm_images/TRAINING_LL.png" alt="Alt text" title="Training Causes">
+<img src="cm_images/TRAINING_LL.png" alt="Alt text" title="Training Causes">
 
 We can clearly see a demarcation in the hotspots for Traffic Rules being violated. Whikle REckless/Improper driving is spread fairly equally all over Chicago, Traffic Rules Violation has concentrated hotspots in certain densely populated areas, for instance, the downtown chicago area. Lets see how did the unablee to determine dataset is spread out.
 
 
-    <img src="cm_images/PREDICTED_LL.png" alt="Alt text" title="Predicted Causes">
+<img src="cm_images/PREDICTED_LL.png" alt="Alt text" title="Predicted Causes">
 
 We see a similar trend where traffic rule violations have hoot spots in densely populated areas. This is something that CDOT can explore further to deriive insights for poliicy and action.
 
@@ -236,7 +236,7 @@ Revisiting the results from the feature selection scores for the Top 10 factors:
 
 With Latitude and Longitude being the biggest contributors, it is clear that there is a trend in certain locations of the type of aciidents taking place. This can be explored to identify if there aare certain areas that have deisgns or mobility patternss that make it more prone to accidents/crashes and appropriate measures can be taken to mitigate these.
 
-The next is driver action which can showcase if there are certain certain drivver actions are causing an increase of crashes. This is one of the columns where the original granularity of the dataset was maintained. This shows that higher graanularity can be useful for the models. Alongside this, Driver Actions can be analyzed based on correlation with the Causes to understand what kind of actions are causing higher amount of crashes and appropriate measures can be taken to inform drivers about the dangers of certain actions or use traffic engineering principles to make it difficult to take certain actions.
+The next is driver action which can showcase if there are certain certain driver actions are causing an increase of crashes. This is one of the columns where the original granularity of the dataset was maintained. This shows that higher graanularity can be useful for the models. Alongside this, Driver Actions can be analyzed based on correlation with the Causes to understand what kind of actions are causing higher amount of crashes and appropriate measures can be taken to inform drivers about the dangers of certain actions or use traffic engineering principles to make it difficult to take certain actions.
 
 Intersection related is interesting because Intersections have one of the most diverse mobility traffic with mutiple movements taking place at the same time. This feature can be explored further to understand which crashes are highly correlated with the presence of intersections and take appropriatae steps to mitigaate those risks.
 
